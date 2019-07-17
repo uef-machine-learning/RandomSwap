@@ -191,5 +191,5 @@ Random(a,b)     returns random number between a..b
 ```
 
 # References
-[1] Pasi Fränti and Juha Kivijärvi. "Randomized local search algorithm for the clustering problem". Pattern Analysis and Applications, 3 (4), 358-369, 2000. https://link.springer.com/article/10.1186/s40537-018-0122-y
+[1] Pasi Fränti and Juha Kivijärvi. "Randomized local search algorithm for the clustering problem". Pattern Analysis and Applications, 3 (4), 358-369, 2000. www.cs.joensuu.fi/pub/franti/papers/Rls.ps
     
