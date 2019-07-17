@@ -1,17 +1,8 @@
 # RandomSwap
-Random Swap Algorithm. [The corresponding paper is here](https://link.springer.com/article/10.1186/s40537-018-0122-y).
+Implementation of the Random Swap (RLS-2) [1] algorithm.
 
-## Pseudo-Code
-
+# Pseudo-Code
 ```
-Pseudo code for the Random Swap (RLS-2) algorithm presented in
-
-    "Randomized local search algorithm for the clustering problem"
-    Pattern Analysis and Applications, 3 (4), 358-369, 2000. 
-    Pasi Fränti and Juha Kivijärvi
-
-
-
 Data structures: 
 ----------------- 
 
@@ -199,3 +190,6 @@ Dist(x1,x2)     calculates euclidean distance between vectors x1 and x2
 Random(a,b)     returns random number between a..b
 ```
 
+# References
+[1] Pasi Fränti and Juha Kivijärvi. "Randomized local search algorithm for the clustering problem". Pattern Analysis and Applications, 3 (4), 358-369, 2000. 
+    
