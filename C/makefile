@@ -1,5 +1,5 @@
-MODULES = ../modules/
-OBJECTS = ../modules/
+MODULES = modules/
+OBJECTS = modules/
 PRGNAME = cbrs
 DEPENDS = $(OBJECTS)cb.o          \
           $(OBJECTS)file.o        \
