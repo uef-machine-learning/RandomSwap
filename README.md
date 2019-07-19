@@ -1,6 +1,16 @@
 # RandomSwap
 Implementation of the Random Swap (RLS-2) [1] algorithm.
 
+# Compile and Run
+This project's **C source code** depends on the [CBModules](https://github.com/uef-machine-learning/CBModules) package as a dependency. So for compiling and running this project, you need to first run these commands:
+```
+$ git clone https://github.com/uef-machine-learning/CBModules.git
+$ git clone https://github.com/uef-machine-learning/RandomSwap.git
+$ cd RandomSwap/C
+$ cp -R ../../CBModules/src/* .
+```
+And then you're able to correctly compile and run this project.
+
 # Pseudo-Code
 ```
 Data structures: 
