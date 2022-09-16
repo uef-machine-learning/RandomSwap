@@ -1,10 +1,29 @@
 """
-Author: Jiawei Yang
-Last updated date: 23th May, 2018
-V 1.1
+Author: Jiawei Yang (22 Nov, 2021)
 
-log: fixed bug (in v 1.0) pointed out by Pasi on 22th May 2018
-refer:http://cs.uef.fi/pages/franti/research/rs.txt
+Modified by Sami Sieranoja (September 2022)
+Version 1.3
+
+The method is based on the Random Swap algorithm in:
+
+P. Franti, "Efficiency of random swap clustering", 
+Journal of Big Data, 5:13, 1-29, 2018. 
+
+The original version with recommended T=5000 iteration:
+
+P. Franti and J. Kivijarvi, "Randomized local search algorithm for the 
+clustering problem", Pattern Analysis and Applications, 3 (4), 358-369, 2000. 
+
+CHANGE LOG:
+22-May 2018: fixed bug (in v 1.0) pointed out by Pasi
+             http://cs.uef.fi/pages/franti/research/rs.txt
+22-Nov-2021: changed default value for RS-iterations to 5000
+             as in the original paper, and default value elsewhere
+16-Sep-2022: Add missing "clusters" parameter to some functions. 
+             Comment out example code at end of file. 
+
+If you find any issues, please report to the author: franti at cs.uef.fi
+
 """
 import random
 import numpy as np
@@ -66,10 +85,10 @@ def PerformRS(X,iterationsRS,iterationKmean,clusters):
     # C=kmeans.cluster_centers_
 
     err=ObjectiveFunction(P,C,X)
-    print("Intinal MSE:",err)
+    print("Initial MSE:",err)
     it=0
     while it <iterationsRS:
-        C_new,j= RandomSwap(copy.deepcopy(C),X)
+        C_new,j= RandomSwap(copy.deepcopy(C),X,clusters)
         P_new= LocalRepartition(copy.deepcopy(P),C_new,X,j)
         P_new,C_new= K_means(P_new,C_new,X,iterationKmean)
         new_err=ObjectiveFunction(P_new,C_new,X)
@@ -155,7 +174,7 @@ def SelectRandomRepresentatives(X,clusters):
         C[i] = SelectRandomDataObject(C,X,i);
     return C
 
-def RandomSwap(C,X):
+def RandomSwap(C,X,clusters):
     j = Random(0,len(C))
     C[j] = SelectRandomDataObject(C,X,clusters)
     return C,j
@@ -197,7 +216,7 @@ def Random(a,b):     #returns random number between a..b
     re=random.randint(a,b-1)
     return re
 
-############### end random swap algorithm ###############
+############### End of random swap algorithm ###############
 
 ###############
 #/* useful methods */
@@ -239,34 +258,33 @@ def cal_Centroid_Index(cluster_centers,cluster_centers_pred):
 ###############
 
 
-########### Setting as  below ###########
+########### Example of usage: ###########
 
 
-filename="data/s1.txt"
-X=load_points(filename)
-X=X[:,[0,1]] # take 2-d points
-iterationsRS=10
-iterationKmean=2 # perform k-mean step, default is 2
-clusters=15 
+# filename="data/s1.txt"
+# X=load_points(filename)
+# X=X[:,[0,1]] # take 2-d points
+# iterationsRS=5000
+# iterationKmean=2 # perform k-mean step, default is 2
+# clusters=15 
 
-now=timeit.default_timer()
-P,C=PerformRS(X,iterationsRS,iterationKmean,clusters)
-now2=timeit.default_timer()
+# now=timeit.default_timer()
+# P,C=PerformRS(X,iterationsRS,iterationKmean,clusters)
+# now2=timeit.default_timer()
 
-MSE=ObjectiveFunction(P,C,X) #calculate MSE
+# MSE=ObjectiveFunction(P,C,X) #calculate MSE
 #print("MSE:",MSE)
 
 ###calculate Centroid Index
-C_pred=C
-real_C_file="data/s1-cb.txt"
-C_real=load_points(real_C_file)
-CI=cal_Centroid_Index(C_pred,C_real)
-#print("Centroid Index:",CI)
+# C_pred=C
+# real_C_file="data/s1-cb.txt"
+# C_real=load_points(real_C_file)
+# CI=cal_Centroid_Index(C_pred,C_real)
 
-print("Total iterations:",iterationsRS,"||Final MSE=",MSE,"||CI=",CI,"||Time=",now2-now)
+# print("Total iterations:",iterationsRS,"||Final MSE=",MSE,"||CI=",CI,"||Time=",now2-now)
 
 ###plot clusters and data
-plotXY(X,C)
+# plotXY(X,C)
 
 
 # # k-means
@@ -279,3 +297,4 @@ plotXY(X,C)
 # print(ObjectiveFunction(P,C,X))
 # CI=cal_Centroid_Index(C,C_real)
 # print("Centroid Index:",CI)
+
